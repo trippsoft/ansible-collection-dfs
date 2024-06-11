@@ -1,0 +1,2 @@
+---
+_dfsr_folder_names: "{{ dfsr_folders | map(attribute='name') }}"

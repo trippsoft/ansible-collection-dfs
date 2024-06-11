@@ -1,0 +1,4 @@
+---
+ansible_user: TEST\vagrant
+
+dfsr_primary_member: true

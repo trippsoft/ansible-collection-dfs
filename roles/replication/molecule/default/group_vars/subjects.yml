@@ -1,0 +1,16 @@
+---
+dfsr_admin_user: TEST\vagrant
+dfsr_admin_password: vagrant
+
+dfsr_ansible_group_name: subjects
+dfsr_replication_group_name: TestReplication
+
+dfsr_folders:
+  - name: Replica1
+    path: C:\Replica1
+  - name: Replica2
+    path: C:\Replica2
+
+dfsr_members:
+  - FS1.test.loc
+  - FS2.test.loc

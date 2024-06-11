@@ -1,0 +1,74 @@
+---
+argument_specs:
+  main:
+    short_description: DFS Replication
+    description:
+      - This role configures DFS Replication on a Windows Server machine.
+    author: Jim Tarpley
+    options:
+      dfsr_admin_user:
+        type: str
+        required: true
+        description:
+          - The user account to use for configuring DFS Replication.
+      dfsr_admin_password:
+        type: str
+        required: true
+        no_log: true
+        description:
+          - The password for the user account to use for configuring DFS Replication.
+      dfsr_members:
+        type: list
+        elements: str
+        required: true
+        description:
+          - A list of member servers to configure for DFS Replication.
+      dfsr_primary_member:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether the member server is the primary member by default.
+          - This can be overridden per folder.
+      dfsr_read_only:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether the member server is read-only by default.
+          - This can be overridden per folder.
+      dfsr_folders:
+        type: list
+        elements: dict
+        required: false
+        description:
+          - A list of folders to configure for DFS Replication.
+        options:
+          name:
+            type: str
+            required: true
+            description:
+              - The name of the folder to configure for DFS Replication.
+          path:
+            type: path
+            required: true
+            description:
+              - The local path of the folder to configure for DFS Replication.
+          primary_member:
+            type: bool
+            required: false
+            description:
+              - Whether the member server is the primary member for the folder.
+              - If provided, this overrides the `dfsr_primary_member` value.
+          read_only:
+            type: bool
+            required: false
+            description:
+              - Whether the member server is read-only for the folder.
+              - If provided, this overrides the `dfsr_read_only` value.
+          staging_quota:
+            type: int
+            required: false
+            default: 4096
+            description:
+              - The staging quota for the folder.

@@ -1,0 +1,15 @@
+[windows_domain_members]
+fs1
+fs2
+
+[windows_domain]
+dc
+
+[windows_domain:children]
+windows_domain_members
+
+[windows:children]
+windows_domain
+
+[subjects:children]
+windows_domain_members

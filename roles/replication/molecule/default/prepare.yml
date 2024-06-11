@@ -1,0 +1,36 @@
+---
+- name: Prepare DC
+  hosts: dc
+  roles:
+    - role: trippsc2.ad.testing_domain_controller
+
+- name: Prepare member server
+  hosts:
+    - windows_domain_members
+  gather_facts: false
+  roles:
+    - role: trippsc2.ad.testing_domain_member
+  tasks:
+    - name: Create replicated folders
+      loop: "{{ dfsr_folders | map(attribute='path') }}"
+      ansible.windows.win_file:
+        path: "{{ item }}"
+        state: directory
+
+- name: Create test file for replication on primary
+  hosts:
+    - fs1
+  tasks:
+    - name: Create file
+      ansible.windows.win_file:
+        path: C:\Replica1\test.txt
+        state: touch
+
+- name: Create test file for replication on non-primary
+  hosts:
+    - fs2
+  tasks:
+    - name: Create file
+      ansible.windows.win_file:
+        path: C:\Replica2\test.txt
+        state: touch

@@ -1,0 +1,23 @@
+---
+namespace: trippsc2
+name: dfs
+version: '1.0.0'
+readme: README.md
+authors:
+  - Jim Tarpley
+description: This collection contains modules and roles for configuring and managing Distributed File System (DFS) on Windows Server machines.
+
+license_file: 'LICENSE'
+
+tags: []
+
+dependencies:
+  ansible.windows: ">=1.0.0"
+  community.windows: ">=1.11.0"
+  trippsc2.ad: ">=1.0.0"
+  trippsc2.general: ">=2.1.0"
+
+repository: https://github.com/trippsc2/ansible-collection-dfs.git
+
+build_ignore:
+  - .gitignore
