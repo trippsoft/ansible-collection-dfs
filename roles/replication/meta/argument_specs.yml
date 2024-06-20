@@ -14,13 +14,12 @@ argument_specs:
       dfsr_admin_password:
         type: str
         required: true
-        no_log: true
         description:
           - The password for the user account to use for configuring DFS Replication.
       dfsr_members:
         type: list
-        elements: str
         required: true
+        elements: str
         description:
           - A list of member servers to configure for DFS Replication.
       dfsr_primary_member:
@@ -39,8 +38,9 @@ argument_specs:
           - This can be overridden per folder.
       dfsr_folders:
         type: list
-        elements: dict
         required: false
+        default: []
+        elements: dict
         description:
           - A list of folders to configure for DFS Replication.
         options:
