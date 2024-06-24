@@ -1,7 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 
 # Ansible Role: trippsc2.dfs.replication
-Version: 1.0.1
+Version: 1.1.0
 
 This role configures DFS Replication on a Windows Server machine.
 
@@ -17,7 +17,7 @@ This role configures DFS Replication on a Windows Server machine.
 | ---------- |
 | ansible.windows |
 | community.windows |
-| trippsc2.general |
+| trippsc2.windows |
 
 ## Role Arguments
 |Option|Description|Type|Required|Choices|Default|
