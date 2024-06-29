@@ -12,20 +12,53 @@ platforms:
     box: jtarpley/${MOLECULE_BOX:-w2022_cis}
     memory: 2048
     cpus: 2
+    groups:
+      - windows
+      - windows_domain
   - name: fs1
     box: jtarpley/${MOLECULE_BOX:-w2022_cis}
     memory: 2048
     cpus: 2
+    groups:
+      - subjects
+      - windows
+      - windows_domain
+      - windows_domain_members
   - name: fs2
     box: jtarpley/${MOLECULE_BOX:-w2022_cis}
     memory: 2048
     cpus: 2
+    groups:
+      - subjects
+      - windows
+      - windows_domain
+      - windows_domain_members
 provisioner:
   name: ansible
   inventory:
-    links:
-      hosts: ./hosts
-      host_vars: ./host_vars/
-      group_vars: ./group_vars/
+    group_vars:
+      subjects:
+        dfsr_admin_user: TEST\vagrant
+        dfsr_admin_password: vagrant
+        dfsr_ansible_group_name: subjects
+        dfsr_replication_group_name: TestReplication
+        dfsr_folders:
+          - name: Replica1
+            path: C:\Replica1
+          - name: Replica2
+            path: C:\Replica2
+        dfsr_members:
+          - FS1.test.loc
+          - FS2.test.loc
+      windows:
+        ansible_shell_type: powershell
+        ansible_become_method: runas
+        ansible_become_user: SYSTEM
+    host_vars:
+      fs1:
+        ansible_user: TEST\vagrant
+        dfsr_primary_member: true
+      fs2:
+        ansible_user: TEST\vagrant
 verifier:
   name: ansible
