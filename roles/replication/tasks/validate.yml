@@ -1,0 +1,28 @@
+---
+- name: Gather OS Facts
+  when:
+    - ansible_distribution is not defined or
+      ansible_os_family is not defined or
+      ansible_windows_domain_member is not defined
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - '!min'
+      - distribution
+      - os_family
+      - windows_domain
+
+- name: Validate OS
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family == 'Windows'
+      - ansible_distribution | regex_search('(Windows Server)')
+    fail_msg: "This role can only be run on a Windows Server system.  {{ ansible_distribution }} is not supported."
+    success_msg: "This role is running on {{ ansible_distribution }}."
+
+- name: Validate that the machine is a domain member
+  ansible.builtin.assert:
+    that:
+      - ansible_windows_domain_member
+    fail_msg: This machine is not a domain member.
+    success_msg: This machine is a domain member.

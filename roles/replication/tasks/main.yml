@@ -1,4 +1,7 @@
 ---
+- name: Validate
+  ansible.builtin.import_tasks: validate.yml
+
 - name: Install DSC modules and feature
   ansible.builtin.import_tasks: install.yml
 

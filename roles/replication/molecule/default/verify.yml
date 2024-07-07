@@ -14,8 +14,8 @@
         that:
           - _replica1_stat.stat.exists
           - not _replica1_stat.stat.isdir
-        fail_msg: C:\Replica1\test.txt does not exist or is a directory
-        success_msg: C:\Replica1\test.txt exists and is not a directory
+        fail_msg: C:\Replica1\test.txt does not exist or is a directory.
+        success_msg: C:\Replica1\test.txt exists and is not a directory.
 
     - name: Get C:\Replica2\test.txt stats
       ansible.windows.win_stat:
@@ -26,5 +26,5 @@
       ansible.builtin.assert:
         that:
           - not _replica2_stat.stat.exists
-        fail_msg: C:\Replica2\test.txt exists
-        success_msg: C:\Replica2\test.txt does not exist
+        fail_msg: C:\Replica2\test.txt exists.
+        success_msg: C:\Replica2\test.txt does not exist.
