@@ -1,0 +1,21 @@
+---
+- name: Validate that the DFS Replication group contains this server
+  ansible.builtin.assert:
+    that:
+      - ansible_fqdn | lower in _dfsr_group.members | map('lower') | list
+    fail_msg: This server is not a member of the DFS Replication group.
+    success_msg: This server is a member of the DFS Replication group.
+
+- name: Validate that folder names are unique
+  ansible.builtin.assert:
+    that:
+      - _dfsr_group.folders | map(attribute='name') | length == _dfsr_group.folders | map(attribute='name') | unique | length
+    fail_msg: The DFS Replication folder names must be unique.
+    success_msg: The DFS Replication folder names are unique.
+
+- name: Validate DFS Replication folders
+  loop: "{{ _dfsr_group.folders }}"
+  ansible.builtin.include_tasks: folder.yml
+  loop_control:
+    label: "{{ _dfsr_folder.name }}"
+    loop_var: _dfsr_folder

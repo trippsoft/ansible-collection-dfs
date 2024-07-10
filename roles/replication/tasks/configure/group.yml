@@ -1,6 +1,6 @@
 ---
 - name: Ensure folder exists
-  loop: "{{ dfsr_folders }}"
+  loop: "{{ _dfsr_group.folders }}"
   ansible.windows.win_file:
     path: "{{ item.path }}"
     state: directory
@@ -11,33 +11,33 @@
   throttle: 1
   ansible.windows.win_dsc:
     resource_name: DFSReplicationGroup
-    GroupName: "{{ dfsr_replication_group_name }}"
+    GroupName: "{{ _dfsr_group.name }}"
     Ensure: Present
-    Folders: "{{ _dfsr_folder_names }}"
-    Members: "{{ dfsr_members }}"
+    Folders: "{{ _dfsr_group.folders | map(attribute='name') }}"
+    Members: "{{ _dfsr_group.members }}"
     Topology: Fullmesh
     PSDSCRunAsCredential_username: "{{ dfsr_admin_user }}"
     PSDSCRunAsCredential_password: "{{ dfsr_admin_password }}"
 
 - name: Configure DFS Replication Folder
-  loop: "{{ dfsr_folders }}"
+  loop: "{{ _dfsr_group.folders }}"
   ansible.windows.win_dsc:
     resource_name: DFSReplicationGroupFolder
-    GroupName: "{{ dfsr_replication_group_name }}"
+    GroupName: "{{ _dfsr_group.name }}"
     FolderName: "{{ item.name }}"
   loop_control:
     label: "{{ item.name }}"
 
 - name: Configure DFS Replication Group Membership
-  loop: "{{ dfsr_folders }}"
+  loop: "{{ _dfsr_group.folders }}"
   ansible.windows.win_dsc:
     resource_name: DFSReplicationGroupMembership
-    GroupName: "{{ dfsr_replication_group_name }}"
+    GroupName: "{{ _dfsr_group.name }}"
     FolderName: "{{ item.name }}"
     ComputerName: "{{ inventory_hostname | upper }}"
     ContentPath: "{{ item.path }}"
-    PrimaryMember: "{{ item.primary_member | default(dfsr_primary_member | default(omit)) }}"
-    ReadOnly: "{{ item.read_only | default(dfsr_read_only | default(omit)) }}"
+    PrimaryMember: "{{ item.primary_member | default(_dfsr_group.primary_member | default(dfsr_default_primary_member | default(omit))) }}"
+    ReadOnly: "{{ item.read_only | default(_dfsr_group.read_only | default(dfsr_default_read_only | default(omit))) }}"
     StagingPathQuotaInMB: "{{ item.staging_quota | default(omit) }}"
     PSDSCRunAsCredential_username: "{{ dfsr_admin_user }}"
     PSDSCRunAsCredential_password: "{{ dfsr_admin_password }}"

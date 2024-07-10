@@ -1,12 +1,12 @@
 ---
 - name: Validate
-  ansible.builtin.import_tasks: validate.yml
+  ansible.builtin.import_tasks: validate/main.yml
 
 - name: Install DSC modules and feature
   ansible.builtin.import_tasks: install.yml
 
 - name: Configure DFS Replication
-  ansible.builtin.import_tasks: configure.yml
+  ansible.builtin.import_tasks: configure/main.yml
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers

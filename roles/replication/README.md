@@ -1,7 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 
 # Ansible Role: trippsc2.dfs.replication
-Version: 1.1.4
+Version: 1.1.5
 
 This role configures DFS Replication on a Windows Server machine.
 
@@ -25,21 +25,29 @@ This role configures DFS Replication on a Windows Server machine.
 ## Role Arguments
 |Option|Description|Type|Required|Choices|Default|
 |---|---|---|---|---|---|
-| dfsr_admin_user | <p>The user account to use for configuring DFS Replication.</p> | str | yes |  |  |
-| dfsr_admin_password | <p>The password for the user account to use for configuring DFS Replication.</p> | str | yes |  |  |
-| dfsr_members | <p>A list of member servers to configure for DFS Replication.</p> | list of 'str' | yes |  |  |
-| dfsr_primary_member | <p>Whether the member server is the primary member by default.</p><p>This can be overridden per folder.</p> | bool | no |  | false |
-| dfsr_read_only | <p>Whether the member server is read-only by default.</p><p>This can be overridden per folder.</p> | bool | no |  | false |
-| dfsr_folders | <p>A list of folders to configure for DFS Replication.</p> | list of dicts of 'dfsr_folders' options | no |  |  |
+| dfsr_admin_user | <p>The user account to be used when configuring DFS Replication.</p> | str | yes |  |  |
+| dfsr_admin_password | <p>The password for the *dfs_admin_user* user account.</p> | str | yes |  |  |
+| dfsr_default_primary_member | <p>Whether the server should default to being the primary member for folders in DFS Replication groups.</p> | bool | no |  | false |
+| dfsr_default_read_only | <p>Whether the server should default to being a read-only member for folders in DFS Replication groups.</p> | bool | no |  | false |
+| dfsr_groups | <p>A list of DFS Replication groups to configure.</p> | list of dicts of 'dfsr_groups' options | yes |  |  |
 
-### Options for dfsr_folders
+### Options for dfsr_groups
 |Option|Description|Type|Required|Choices|Default|
 |---|---|---|---|---|---|
-| name | <p>The name of the folder to configure for DFS Replication.</p> | str | yes |  |  |
-| path | <p>The local path of the folder to configure for DFS Replication.</p> | path | yes |  |  |
-| primary_member | <p>Whether the member server is the primary member for the folder.</p><p>If provided, this overrides the `dfsr_primary_member` value.</p> | bool | no |  | false |
-| read_only | <p>Whether the member server is read-only for the folder.</p><p>If provided, this overrides the `dfsr_read_only` value.</p> | bool | no |  | false |
-| staging_quota | <p>The staging quota for the folder.</p> | int | no |  | 4096 |
+| name | <p>The name of the DFS Replication group to configure.</p> | str | yes |  |  |
+| primary_member | <p>Whether the server should default to being the primary member for folders in this DFS Replication group.</p> | bool | no |  | false |
+| read_only | <p>Whether the server should default to being a read-only member for folders in this DFS Replication group.</p> | bool | no |  | false |
+| folders | <p>A list of folders to configure in this DFS Replication group.</p> | list of dicts of 'folders' options | yes |  |  |
+| members | <p>A list of the fully qualified domain names (FQDN) of the member servers of this DFS Replication group.</p> | list of 'str' | yes |  |  |
+
+### Options for dfsr_groups > folders
+|Option|Description|Type|Required|Choices|Default|
+|---|---|---|---|---|---|
+| name | <p>The name of the folder to configure.</p> | str | yes |  |  |
+| path | <p>The local path of the folder.</p> | path | yes |  |  |
+| primary_member | <p>Whether the member server is the primary member for the folder.</p><p>This defaults to the *primary_member* value for the group or the *dfsr_default_primary_member* value in that order.</p> | bool | no |  | false |
+| read_only | <p>Whether the member server is read-only for the folder.</p><p>This defaults to the *read_only* value for the group or the *dfsr_default_read_only* value in that order.</p> | bool | no |  | false |
+| staging_quota | <p>The staging quota for the folder in MB.</p><p>This should be equal to the sum of the sizes of the largest 32 files to be replicated.</p> | int | no |  | 4096 |
 
 
 ## License

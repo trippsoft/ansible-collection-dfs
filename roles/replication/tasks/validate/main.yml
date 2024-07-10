@@ -26,3 +26,17 @@
       - ansible_windows_domain_member
     fail_msg: This machine is not a domain member.
     success_msg: This machine is a domain member.
+
+- name: Validate that DFS Replication group names are unique
+  ansible.builtin.assert:
+    that:
+      - dfsr_groups | map(attribute='name') | length == dfsr_groups | map(attribute='name') | unique | length
+    fail_msg: The DFS Replication group names must be unique.
+    success_msg: The DFS Replication group names are unique.
+
+- name: Validate DFS Replication groups
+  loop: "{{ dfsr_groups }}"
+  ansible.builtin.include_tasks: group.yml
+  loop_control:
+    label: "{{ _dfsr_group.name }}"
+    loop_var: _dfsr_group

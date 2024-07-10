@@ -40,16 +40,16 @@ provisioner:
       subjects:
         dfsr_admin_user: TEST\vagrant
         dfsr_admin_password: vagrant
-        dfsr_ansible_group_name: subjects
-        dfsr_replication_group_name: TestReplication
-        dfsr_folders:
-          - name: Replica1
-            path: C:\Replica1
-          - name: Replica2
-            path: C:\Replica2
-        dfsr_members:
-          - FS1.test.loc
-          - FS2.test.loc
+        dfsr_groups:
+          - name: TestReplication
+            members:
+              - FS1.test.loc
+              - FS2.test.loc
+            folders:
+              - name: Replica1
+                path: C:\Replica1
+              - name: Replica2
+                path: C:\Replica2
       windows:
         ansible_shell_type: powershell
         ansible_become_method: runas
@@ -57,7 +57,7 @@ provisioner:
     host_vars:
       fs1:
         ansible_user: TEST\vagrant
-        dfsr_primary_member: true
+        dfsr_default_primary_member: true
       fs2:
         ansible_user: TEST\vagrant
 verifier:

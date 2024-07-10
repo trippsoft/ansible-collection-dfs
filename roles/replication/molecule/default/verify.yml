@@ -7,24 +7,24 @@
     - name: Get C:\Replica1\test.txt stats
       ansible.windows.win_stat:
         path: C:\Replica1\test.txt
-      register: _replica1_stat
+      register: _replica1_test
 
     - name: Assert that C:\Replica1\test.txt exists
       ansible.builtin.assert:
         that:
-          - _replica1_stat.stat.exists
-          - not _replica1_stat.stat.isdir
+          - _replica1_test.stat.exists
+          - not _replica1_test.stat.isdir
         fail_msg: C:\Replica1\test.txt does not exist or is a directory.
         success_msg: C:\Replica1\test.txt exists and is not a directory.
 
     - name: Get C:\Replica2\test.txt stats
       ansible.windows.win_stat:
         path: C:\Replica2\test.txt
-      register: _replica2_stat
+      register: _replica2_test
 
     - name: Assert that C:\Replica2\test.txt does not exist
       ansible.builtin.assert:
         that:
-          - not _replica2_stat.stat.exists
+          - not _replica2_test.stat.exists
         fail_msg: C:\Replica2\test.txt exists.
         success_msg: C:\Replica2\test.txt does not exist.

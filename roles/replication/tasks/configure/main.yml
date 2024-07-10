@@ -1,0 +1,7 @@
+---
+- name: Configure DFS Replication group
+  loop: "{{ dfsr_groups }}"
+  ansible.builtin.include_tasks: group.yml
+  loop_control:
+    label: "{{ _dfsr_group.name }}"
+    loop_var: _dfsr_group
