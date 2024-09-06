@@ -14,6 +14,7 @@ argument_specs:
       dfsr_admin_password:
         type: str
         required: true
+        no_log: true
         description:
           - The password for the *dfs_admin_user* user account.
       dfsr_default_primary_member:
