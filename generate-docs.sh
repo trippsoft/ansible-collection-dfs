@@ -2,4 +2,4 @@
 
 cd ./roles/replication
 
-aar_doc . markdown
+aar-doc . markdown

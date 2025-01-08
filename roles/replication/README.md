@@ -1,7 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 
 # Ansible Role: trippsc2.dfs.replication
-Version: 1.1.8
+Version: 1.1.9
 
 This role configures DFS Replication on a Windows Server machine.
 
@@ -27,16 +27,16 @@ This role configures DFS Replication on a Windows Server machine.
 |---|---|---|---|---|---|
 | dfsr_admin_user | <p>The user account to be used when configuring DFS Replication.</p> | str | yes |  |  |
 | dfsr_admin_password | <p>The password for the *dfs_admin_user* user account.</p> | str | yes |  |  |
-| dfsr_default_primary_member | <p>Whether the server should default to being the primary member for folders in DFS Replication groups.</p> | bool | no |  | false |
-| dfsr_default_read_only | <p>Whether the server should default to being a read-only member for folders in DFS Replication groups.</p> | bool | no |  | false |
+| dfsr_default_primary_member | <p>Whether the server should default to being the primary member for folders in DFS Replication groups.</p> | bool | no |  |  |
+| dfsr_default_read_only | <p>Whether the server should default to being a read-only member for folders in DFS Replication groups.</p> | bool | no |  | False |
 | dfsr_groups | <p>A list of DFS Replication groups to configure.</p> | list of dicts of 'dfsr_groups' options | yes |  |  |
 
 ### Options for dfsr_groups
 |Option|Description|Type|Required|Choices|Default|
 |---|---|---|---|---|---|
 | name | <p>The name of the DFS Replication group to configure.</p> | str | yes |  |  |
-| primary_member | <p>Whether the server should default to being the primary member for folders in this DFS Replication group.</p> | bool | no |  | false |
-| read_only | <p>Whether the server should default to being a read-only member for folders in this DFS Replication group.</p> | bool | no |  | false |
+| primary_member | <p>Whether the server should default to being the primary member for folders in this DFS Replication group.</p> | bool | no |  |  |
+| read_only | <p>Whether the server should default to being a read-only member for folders in this DFS Replication group.</p> | bool | no |  |  |
 | folders | <p>A list of folders to configure in this DFS Replication group.</p> | list of dicts of 'folders' options | yes |  |  |
 | members | <p>A list of the fully qualified domain names (FQDN) of the member servers of this DFS Replication group.</p> | list of 'str' | yes |  |  |
 
@@ -45,8 +45,8 @@ This role configures DFS Replication on a Windows Server machine.
 |---|---|---|---|---|---|
 | name | <p>The name of the folder to configure.</p> | str | yes |  |  |
 | path | <p>The local path of the folder.</p> | path | yes |  |  |
-| primary_member | <p>Whether the member server is the primary member for the folder.</p><p>This defaults to the *primary_member* value for the group or the *dfsr_default_primary_member* value in that order.</p> | bool | no |  | false |
-| read_only | <p>Whether the member server is read-only for the folder.</p><p>This defaults to the *read_only* value for the group or the *dfsr_default_read_only* value in that order.</p> | bool | no |  | false |
+| primary_member | <p>Whether the member server is the primary member for the folder.</p><p>This defaults to the *primary_member* value for the group or the *dfsr_default_primary_member* value in that order.</p> | bool | no |  |  |
+| read_only | <p>Whether the member server is read-only for the folder.</p><p>This defaults to the *read_only* value for the group or the *dfsr_default_read_only* value in that order.</p> | bool | no |  |  |
 | staging_quota | <p>The staging quota for the folder in MB.</p><p>This should be equal to the sum of the sizes of the largest 32 files to be replicated.</p> | int | no |  | 4096 |
 
 
