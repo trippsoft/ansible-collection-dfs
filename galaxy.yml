@@ -4,7 +4,7 @@ name: dfs
 version: 1.1.9
 readme: README.md
 authors:
-  - Jim Tarpley
+  - Jim Tarpley (@trippsc2)
 description: This collection contains modules and roles for configuring and managing Distributed File System (DFS) on Windows Server machines.
 
 license_file: 'LICENSE'
