@@ -35,7 +35,7 @@
 
 - name: Validate DFS Replication groups
   loop: "{{ dfsr_groups }}"
-  ansible.builtin.include_tasks: group.yml
+  ansible.builtin.include_tasks: validate/group.yml
   loop_control:
     label: "{{ _dfsr_group.name }}"
     loop_var: _dfsr_group

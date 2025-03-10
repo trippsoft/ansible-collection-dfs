@@ -15,7 +15,7 @@
 
 - name: Validate DFS Replication folders
   loop: "{{ _dfsr_group.folders }}"
-  ansible.builtin.include_tasks: folder.yml
+  ansible.builtin.include_tasks: validate/folder.yml
   loop_control:
     label: "{{ _dfsr_folder.name }}"
     loop_var: _dfsr_folder
