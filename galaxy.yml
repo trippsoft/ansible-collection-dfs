@@ -1,7 +1,7 @@
 ---
 namespace: trippsc2
 name: dfs
-version: 1.1.10
+version: 1.1.11
 readme: README.md
 authors:
   - Jim Tarpley (@trippsc2)
@@ -16,10 +16,9 @@ tags:
 dependencies:
   ansible.windows: ">=1.0.0"
   community.windows: ">=1.11.0"
-  trippsc2.ad: ">=1.0.0"
   trippsc2.windows: ">=1.0.0"
 
-repository: https://github.com/trippsc2/ansible-collection-dfs.git
+repository: https://github.com/trippsoft/ansible-collection-dfs.git
 
 manifest:
   directives:

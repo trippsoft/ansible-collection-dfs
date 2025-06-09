@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.11] - 2025-06-10
+
+### Collection
+
+- Changed repository URL to use GitHub Organization.
+
 ## [1.1.10] - 2025-03-10
 
 ### Role - replication
