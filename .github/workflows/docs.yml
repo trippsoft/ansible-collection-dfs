@@ -7,6 +7,10 @@ name: Generate Role Docs
       - main
     paths:
       - galaxy.yml
+      - roles/replication/.aar_doc.yml
+      - roles/replication/README.md
+      - roles/replication/meta/argument_specs.yml
+      - roles/replication/meta/main.yml
 defaults:
   run:
     working-directory: 'trippsc2.dfs'
