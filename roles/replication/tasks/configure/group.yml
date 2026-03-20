@@ -36,7 +36,9 @@
     FolderName: "{{ item.name }}"
     ComputerName: "{{ inventory_hostname | upper }}"
     ContentPath: "{{ item.path }}"
-    PrimaryMember: "{{ item.primary_member | default(_dfsr_group.primary_member | default(dfsr_default_primary_member | default(omit))) }}"
+    PrimaryMember: >-
+      {{ item.primary_member |
+          default(_dfsr_group.primary_member | default(dfsr_default_primary_member | default(omit))) }}
     ReadOnly: "{{ item.read_only | default(_dfsr_group.read_only | default(dfsr_default_read_only | default(omit))) }}"
     StagingPathQuotaInMB: "{{ item.staging_quota | default(omit) }}"
     PSDSCRunAsCredential_username: "{{ dfsr_admin_user }}"
