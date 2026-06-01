@@ -28,7 +28,7 @@ defaults:
     working-directory: 'trippsc2.dfs'
 jobs:
   molecule:
-    name: Run Molecule tests - replication
+    name: Run Molecule tests
     runs-on:
       - self-hosted
       - linux
